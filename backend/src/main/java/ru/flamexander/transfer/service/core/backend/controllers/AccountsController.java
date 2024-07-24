@@ -16,7 +16,8 @@ import ru.flamexander.transfer.service.core.api.dtos.CreateAccountDto;
 import ru.flamexander.transfer.service.core.backend.entities.Account;
 import ru.flamexander.transfer.service.core.backend.errors.ErrorDto;
 import ru.flamexander.transfer.service.core.backend.errors.ResourceNotFoundException;
-import ru.flamexander.transfer.service.core.backend.services.AccountsService;
+import ru.flamexander.transfer.service.core.backend.services.AccountService;
+import ru.flamexander.transfer.service.core.backend.services.AccountServiceImpl;
 
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -26,13 +27,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/accounts")
 @Tag(name = "Счета клиентов", description = "Методы работы со счетами клиентов")
 public class AccountsController {
-    private final AccountsService accountsService;
-
-    private Function<Account, AccountDto> entityToDto = account -> new AccountDto(account.getId(), account.getAccountNumber(), account.getClientId(), account.getBalance());
+    private final AccountService accountsService;
 
     @GetMapping("/{id}")
     public AccountDto getAccountDetails(@RequestHeader Long clientId, @PathVariable Long id) {
-        return accountsService.getAccountById(clientId, id).map(entityToDto).orElseThrow(() -> new ResourceNotFoundException("Счет не найден"));
+        return accountsService.getAccountById(clientId, id);
     }
 
     @Operation(summary = "Получение информации о всех счетах пользователя")
@@ -40,7 +39,7 @@ public class AccountsController {
     public AccountsPageDto getAllAccounts(
             @RequestHeader Long clientId
     ) {
-        return new AccountsPageDto(accountsService.getAllAccounts(clientId).stream().map(entityToDto).collect(Collectors.toList()));
+        return new AccountsPageDto(accountsService.getAllAccounts(clientId));
     }
 
     @Operation(summary = "Создание нового счета")
@@ -55,6 +54,6 @@ public class AccountsController {
             @RequestHeader @Parameter(description = "Идентификатор клиента для которого создается новый счет") Long clientId,
             @RequestBody CreateAccountDto createAccountDto
     ) {
-        return entityToDto.apply(accountsService.createNewAccount(clientId, createAccountDto));
+        return accountsService.createNewAccount(clientId, createAccountDto);
     }
 }
