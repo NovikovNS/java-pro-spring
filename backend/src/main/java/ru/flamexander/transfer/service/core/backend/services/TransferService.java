@@ -1,5 +1,11 @@
 package ru.flamexander.transfer.service.core.backend.services;
 
+import ru.flamexander.transfer.service.core.api.dtos.ExecuteTransferDtoRequest;
+import ru.flamexander.transfer.service.core.api.dtos.TransferDto;
+
+import java.util.List;
+
 public interface TransferService {
-    void transfer(Long sourceAccountId, Long targetAccountId);
+    void transfer(ExecuteTransferDtoRequest request);
+    List<TransferDto> transfersFromClientId(Long sourceClientId);
 }

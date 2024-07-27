@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 // -Dspring.profiles.active=dev
+// http://localhost:8189/h2-console
 
 /*
 	- Необходимо реализовать логику перевода средств между счетами:
