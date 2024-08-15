@@ -26,7 +26,7 @@ public class TransfersController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<TransferDto>> getTransfersByClientId(@RequestParam Long sourceClientId){
-        return ResponseEntity.ok(transferService.transfersFromClientId(sourceClientId));
+    public ResponseEntity<List<TransferDto>> getTransfersByClientId(@RequestParam Long clientId){
+        return ResponseEntity.ok(transferService.allClientTransfers(clientId));
     }
 }

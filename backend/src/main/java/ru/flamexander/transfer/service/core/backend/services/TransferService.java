@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TransferService {
     void transfer(ExecuteTransferDtoRequest request);
-    List<TransferDto> transfersFromClientId(Long sourceClientId);
+    List<TransferDto> allClientTransfers(Long clientId);
 }

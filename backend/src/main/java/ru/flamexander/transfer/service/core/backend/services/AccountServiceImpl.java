@@ -44,10 +44,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     public void updateBalance(Long accountId, BigDecimal newBalance) {
-        accountsRepository.findById(accountId)
-            .orElseThrow(() -> new ResourceNotFoundException(String.format("Не найден счет по идентификатору %s", accountId)))
-            .setBalance(newBalance);
-
+        accountsRepository.updateBalance(newBalance, accountId);
     }
 
     private Function<Account, AccountDto> entityToDto = account -> AccountDto.builder()

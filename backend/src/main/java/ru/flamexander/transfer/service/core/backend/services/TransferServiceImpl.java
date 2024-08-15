@@ -27,20 +27,20 @@ public class TransferServiceImpl implements TransferService {
         AccountDto sourceAccount = accountsService.getAccountById(request.getSourceClientId(), request.getSourceAccountId());
         AccountDto targetAccount = accountsService.getAccountById(request.getTargetClientId(), request.getTargetAccountId());
         executeTransferValidator.validate(request, sourceAccount, targetAccount);
-        accountsService.updateBalance(sourceAccount.getId(), sourceAccount.getBalance().subtract(request.getPayment()));
-        accountsService.updateBalance(targetAccount.getId(), targetAccount.getBalance().add(request.getPayment()));
+        accountsService.updateBalance(sourceAccount.getId(), sourceAccount.getBalance().subtract(request.getSum()));
+        accountsService.updateBalance(targetAccount.getId(), targetAccount.getBalance().add(request.getSum()));
         transferRepository.save(requestToEntity.apply(request,TransferStatus.COMPLETED));
     }
 
     @Override
-    public List<TransferDto> transfersFromClientId(Long sourceClientId) {
-        return transferRepository.findBySourceClientId(sourceClientId).stream().map(entityToDto).toList();
+    public List<TransferDto> allClientTransfers(Long clientId) {
+        return transferRepository.findBySourceClientIdAndTargetClientId(clientId, clientId).stream().map(entityToDto).toList();
     }
 
     private Function<Transfer, TransferDto> entityToDto = transfer -> TransferDto.builder()
         .id(transfer.getId())
-        .transferStatus(transfer.getTransferStatus())
-        .payment(transfer.getPayment())
+        .status(transfer.getStatus())
+        .sum(transfer.getSum())
         .sourceClientId(transfer.getSourceClientId())
         .sourceAccountId(transfer.getSourceAccountId())
         .targetClientId(transfer.getTargetClientId())
@@ -54,7 +54,7 @@ public class TransferServiceImpl implements TransferService {
         .sourceAccountId(request.getSourceAccountId())
         .targetClientId(request.getTargetClientId())
         .targetAccountId(request.getTargetAccountId())
-        .payment(request.getPayment())
-        .transferStatus(status)
+        .sum(request.getSum())
+        .status(status)
         .build();
 }

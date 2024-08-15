@@ -19,5 +19,5 @@ public class ExecuteTransferDtoRequest {
 
     private Long targetAccountId;
 
-    private BigDecimal payment;
+    private BigDecimal sum;
 }

@@ -17,7 +17,7 @@ create table clients
 create table transfers
 (
     id  bigserial       primary key,
-    payment             numeric(6, 2),
+    sum             numeric(6, 2),
     transfer_status     varchar(16),
     source_client_id    bigserial,
     source_account_id   bigserial,

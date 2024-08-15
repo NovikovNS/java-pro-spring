@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TransferRepository extends JpaRepository<Transfer, Long> {
 
-    List<Transfer> findBySourceClientId(Long sourceClientId);
+    List<Transfer> findBySourceClientIdAndTargetClientId(Long sourceClientId, Long targetClientId);
 }

@@ -16,11 +16,11 @@ public class ExecuteTransferValidator {
     public void validate(ExecuteTransferDtoRequest request, AccountDto sourceAccount, AccountDto targetAccount) {
         List<FieldValidationError> errorFields = new ArrayList<>();
 
-        if (sourceAccount.getBalance().compareTo(request.getPayment()) < 0) {
+        if (sourceAccount.getBalance().compareTo(request.getSum()) < 0) {
             errorFields.add(new FieldValidationError("payment", "Нельзя перевести средств больше, чем есть на счете отправителя"));
         }
 
-        if (request.getPayment().compareTo(BigDecimal.ZERO) < 0) {
+        if (request.getSum().compareTo(BigDecimal.ZERO) < 0) {
             errorFields.add(new FieldValidationError("payment", "Нельзя перевести отрицательное количество средств"));
         }
 

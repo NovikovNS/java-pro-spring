@@ -20,7 +20,7 @@ public class TransferDto {
     private Long id;
 
     @Schema(description = "Сумма перевода")
-    private BigDecimal payment;
+    private BigDecimal sum;
 
     @Schema(description = "ID клиента счёта списания")
     private Long sourceClientId;
@@ -35,7 +35,7 @@ public class TransferDto {
     private Long targetAccountId;
 
     @Schema(description = "Статус перевода")
-    private TransferStatus transferStatus;
+    private TransferStatus status;
 
     @Schema(description = "Дата создания")
     private LocalDateTime createDate;

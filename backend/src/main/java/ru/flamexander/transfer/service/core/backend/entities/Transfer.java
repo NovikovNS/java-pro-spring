@@ -34,12 +34,12 @@ public class Transfer {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "payment")
-    private BigDecimal payment;
+    @Column(name = "sum")
+    private BigDecimal sum;
 
     @Column(name = "transfer_status")
     @Enumerated(EnumType.STRING)
-    private TransferStatus transferStatus;
+    private TransferStatus status;
 
     @Column(name = "source_client_id")
     private Long sourceClientId;
