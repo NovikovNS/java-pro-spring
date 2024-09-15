@@ -1,6 +1,7 @@
 package ru.flamexander.transfer.service.core.api.dtos;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @Schema(description = "Описание счета клиента")
 public class AccountDto {
     @Schema(description = "Внутренний ID счета", required = true)
